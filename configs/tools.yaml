@@ -1,0 +1,21 @@
+# hyperparameters
+threads: 4
+gnomix:
+  enabled: true
+  cmd_template: >
+    {python_bin} {gnomix_script} {query_haps} {out_dir} {chrom} False
+    {genetic_map} {ref_haps} {sample_map} {gnomix_config}
+  extra_args: ""
+  script_path: "/YOUR_GNOMIX_PATH/gnomix.py"
+  config_path: "./configs/gnomix_fast.yaml"
+
+rfmix:
+  enabled: true
+  cmd_template: >
+    rfmix -f {query_haps} -r {ref_haps} -m {sample_map} -g {genetic_map}
+    -o {out_prefix} -n 5 -e 2 --chromosome={chrom}
+  extra_args: ""
+
+benchmark:
+  time_bin: "/usr/bin/time"
+  time_args: "-v"

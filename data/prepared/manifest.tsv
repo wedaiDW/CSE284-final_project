@@ -1,0 +1,2 @@
+chrom	prepared_vcf	reference_list	test_list
+22	data/prepared/chr22/benchmark_input.chr22.vcf.gz	data/sample_lists/reference.txt	data/sample_lists/test.txt

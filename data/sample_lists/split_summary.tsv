@@ -1,0 +1,3 @@
+group	n_samples	pops
+reference	150	CEU,CHB,YRI
+test	50	PEL

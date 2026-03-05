@@ -1,0 +1,30 @@
+chromosomes: ["22"]
+
+reference_pops: ["CEU", "YRI", "CHB"] #change here
+
+admixed_test_pops: ["PEL"] # change
+
+# set to None/null to use all
+n_ref_per_pop: 50
+n_test: 50
+random_seed: 42
+
+# Paths
+# data_root for metadata
+data_root: "./data/raw"
+panel_tsv: "./data/raw/meta/panel.tsv"
+vcf_pattern: "./data/raw/1000G_chr{chrom}_pruned.vcf.gz"
+
+# output paths
+prepared_root: "./data/prepared"
+reference_list: "./data/sample_lists/reference.txt"
+test_list: "./data/sample_lists/test.txt"
+
+# label alignment
+ancestry_label_map:
+  CEU: "EUR"
+  YRI: "AFR"
+  CHB: "EAS"
+  EUR: "EUR"
+  AFR: "AFR"
+  EAS: "EAS"
