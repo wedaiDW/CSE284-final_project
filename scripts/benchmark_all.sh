@@ -29,23 +29,49 @@ TIME_BIN="/usr/bin/time"
 if [[ ! -x "$TIME_BIN" ]]; then
   TIME_BIN="time"
 fi
-
-echo "[benchmark] using timer: $TIME_BIN"
 TIME_ARGS="-v"
 if [[ "$(uname -s)" == "Darwin" ]]; then
-  TIME_ARGS="-l"
+  TIME_BIN=""
+  TIME_ARGS=""
 fi
 
-"$TIME_BIN" "$TIME_ARGS" -o results/benchmark/prepare.time.txt \
+if [[ -n "$TIME_BIN" ]]; then
+  echo "[benchmark] using timer: $TIME_BIN"
+else
+  echo "[benchmark] timing disabled on Darwin"
+fi
+
+run_timed() {
+  local outfile="$1"
+  shift
+
+  if [[ -z "$TIME_BIN" ]]; then
+    echo "[warn] timing skipped on Darwin to avoid /usr/bin/time permission issues" >&2
+    printf "timer_skipped=1\n" >"$outfile"
+    "$@"
+    return 0
+  fi
+
+  if "$TIME_BIN" "$TIME_ARGS" -o "$outfile" "$@"; then
+    return 0
+  fi
+
+  echo "[warn] timer failed for: $*" >&2
+  echo "[warn] falling back to untimed execution" >&2
+  printf "timer_failed=1\n" >"$outfile"
+  "$@"
+}
+
+run_timed results/benchmark/prepare.time.txt \
   python scripts/prepare_inputs.py --config "$CONFIG"
 
-"$TIME_BIN" "$TIME_ARGS" -o results/benchmark/gnomix.time.txt \
+run_timed results/benchmark/gnomix.time.txt \
   python scripts/run_gnomix.py --config "$CONFIG" --tools "$TOOLS_CONFIG"
 
-"$TIME_BIN" "$TIME_ARGS" -o results/benchmark/rfmix.time.txt \
+run_timed results/benchmark/rfmix.time.txt \
   python scripts/run_rfmix.py --config "$CONFIG" --tools "$TOOLS_CONFIG"
 
-"$TIME_BIN" "$TIME_ARGS" -o results/benchmark/postprocess.time.txt \
+run_timed results/benchmark/postprocess.time.txt \
   python scripts/postprocess_metrics.py --config "$CONFIG"
 
 echo "[ok] benchmark logs saved to results/benchmark/"

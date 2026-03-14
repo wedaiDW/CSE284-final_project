@@ -1,0 +1,3 @@
+tool,n_samples,n_tracts,mean_tract_length_bp,median_tract_length_bp,mean_tracts_per_sample,mean_prop_AFR,mean_prop_EAS,mean_prop_EUR
+gnomix,50,88,8039748.079545454,8210428.0,1.76,0.040856,0.7193560000000001,0.239788
+rfmix,50,93,7608730.0322580645,6743913.0,1.86,0.044827995255041525,0.7447093712930013,0.2104626334519573

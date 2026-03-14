@@ -48,7 +48,25 @@ def main() -> None:
         print("\nSome expected files are missing:")
         for path in missing:
             print(f"  - {path}")
-        print("\nPlace data at the data root.")
+        print("\nExpected layout:")
+        print(f"  {data_root}/")
+        print("    meta/panel.tsv")
+        for chrom in chromosomes:
+            print(f"    1000G_chr{chrom}_pruned.vcf.gz")
+            print(f"    1000G_chr{chrom}_pruned.vcf.gz.tbi")
+
+        print("\nExamples:")
+        print(
+            "  python scripts/run_pipeline.py "
+            "--data-root /path/to/raw --chromosomes 22"
+        )
+        print(
+            "  python scripts/run_pipeline.py "
+            "--panel-tsv /path/to/panel.tsv "
+            "--vcf-pattern '/path/to/1000G_chr{chrom}_pruned.vcf.gz' "
+            "--chromosomes 22"
+        )
+        raise SystemExit(1)
     else:
         print("Sanity check OK")
 

@@ -6,7 +6,7 @@ gnomix:
     {python_bin} {gnomix_script} {query_haps} {out_dir} {chrom} False
     {genetic_map} {ref_haps} {sample_map} {gnomix_config}
   extra_args: ""
-  script_path: "/YOUR_GNOMIX_PATH/gnomix.py"
+  script_path: "/Users/Macrodove/284final/gnomix-src-20260305/gnomix.py"
   config_path: "./configs/gnomix_fast.yaml"
 
 rfmix:

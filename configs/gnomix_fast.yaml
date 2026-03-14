@@ -15,7 +15,7 @@ simulation:
 
 model:
   name: model
-  inference:
+  inference: fast
   window_size_cM: 0.2
   smooth_size: 50
   context_ratio: 0.5
